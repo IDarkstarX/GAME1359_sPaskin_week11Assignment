@@ -10,19 +10,105 @@ public class LevelManager : MonoBehaviour {
     public Transform[] roomSpawnersRow2;
     public Transform[] roomSpawnersRow3;
 
+    public int[,] roomGrid = new int[4,4];
+
     public GameObject[] rooms;
 
     public int testRow = 0;
     public int testColumn = 0;
     public int testType = 0;
 
+    int rngNum;
+
     // Use this for initialization
     void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        Debug.Log(roomGrid.Length);
+
+        for (int i = 0; i < 4; i++) {
+            Debug.Log("row: "+ i);
+            for (int j = 0; j < 4; i++) {
+                Debug.Log("col: " + j);
+                if (i == 0 && j == 0)
+                {
+                    roomGrid[i,j] = Random.Range(1, 3);
+                } else if(roomGrid[i,j] != null) {
+
+                    rngNum = Random.Range(1, 5);
+                    if(rngNum != 4)
+                    {
+                        roomGrid[i,j] = Random.Range(1, 3);
+                    } else
+                    {
+                        int[] randomFromSet = new int[] { 2, 4 };
+                        int RandomSetIndex = (int)Mathf.Min(randomFromSet.Length - 1, Random.Range(0, randomFromSet.Length));
+                        roomGrid[i,j] = RandomSetIndex;
+
+                        rngNum = Random.Range(1, 5);
+                        if (rngNum != 4 && roomGrid[i - 1,j] != null)
+                        {
+                            roomGrid[i-1,j] = Random.Range(3, 5);
+                            
+                        }
+                    }
+                }
+                Debug.Log(roomGrid[i,j]);
+            }
+        }
+
+        /*
+         * 
+         * AddRoom(i, j, Random.Range(1, 3));
+                    Instantiate(rooms[0], new Vector3(-34, 0, -0.02f), transform.rotation);
+        roomPicker = Random.Range(1, 3);
+        Debug.Log(roomPicker);
+        AddRoom(0, 0, roomPicker);
+        Instantiate(rooms[0], new Vector3(-34, 0, 0), transform.rotation);
+
+        if(roomPicker == 2) //down left(stop) right
+        {
+            roomPicker = Random.Range(3, 5);
+            Debug.Log(roomPicker);
+            AddRoom(1, 0, roomPicker);
+            Instantiate(rooms[0], new Vector3(-34, 0, -34), transform.rotation);
+
+            if(roomPicker == 4) //down left(stop) right >> down left(stop) right
+            {
+                roomPicker = Random.Range(3, 5);
+                Debug.Log(roomPicker);
+                AddRoom(2, 0, roomPicker);
+                Instantiate(rooms[0], new Vector3(-34, 0, -34), transform.rotation);
+
+                if (roomPicker == 4) //down left(stop) right >> down left(stop) right >> down left(stop) right
+                {
+                    roomPicker = Random.Range(3, 5);
+                    Debug.Log(roomPicker);
+                    AddRoom(2, 0, roomPicker);
+                    Instantiate(rooms[0], new Vector3(-34, 0, -68), transform.rotation);
+
+                    if (roomPicker == 4) //down left(stop) right >> down left(stop) right >> down left(stop) right >> down(stop) left(stop) right
+                    {
+                        roomPicker = Random.Range(3, 5);
+                        Debug.Log(roomPicker);
+                        AddRoom(2, 0, roomPicker);
+                        Instantiate(rooms[0], new Vector3(-34, 0, -136), transform.rotation);
+                        Instantiate(rooms[0], new Vector3(0, 0, -170), transform.rotation);
+                    }
+                }
+            }
+
+        } else //left right
+        {
+            roomPicker = Random.Range(1, 3);
+            Debug.Log(roomPicker);
+            AddRoom(0, 1, roomPicker);
+        }
+        */
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
         if(Input.GetKeyDown(KeyCode.Space))
         {
