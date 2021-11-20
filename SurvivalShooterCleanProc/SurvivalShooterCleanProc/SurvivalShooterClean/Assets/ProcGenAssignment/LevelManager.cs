@@ -47,36 +47,46 @@ public class LevelManager : MonoBehaviour {
                         {
                             roomGrid[i, j] = 2;
                         }
-                        else if (rngNum == 2)
+                        else
                         {
                             roomGrid[i, j] = 4;
                         }
 
                         hasGoneDown = true;
                     }
-                    if(j == 4 && !hasGoneDown)
+                    if(j == 3 && !hasGoneDown)
                     {
-                        int[] randomFromSet = new int[] { 2, 4 };
-                        int RandomSetIndex = (int)Mathf.Min(randomFromSet.Length - 1, Random.Range(0, randomFromSet.Length));
-                        roomGrid[i, j] = RandomSetIndex;
-                    }
-                }
-                Debug.Log(roomGrid[i,j]);
-                if (i - 1 != -1)
-                {
-                    if (roomGrid[i - 1, j] == 2 || roomGrid[i - 1, j] == 4)
-                    {
-                        rngNum = Random.Range(1, 5);
-                        if (rngNum != 4)
+                        rngNum = Random.Range(1, 3);
+                        if (rngNum == 1)
                         {
-                            roomGrid[i, j] = 3;
+                            roomGrid[i, j] = 2;
                         }
                         else
                         {
                             roomGrid[i, j] = 4;
                         }
+
+                        hasGoneDown = true;
+                    }
+                    if (i - 1 != -1)
+                    {
+                        if (roomGrid[i - 1, j] == 2 || roomGrid[i - 1, j] == 4)
+                        {
+
+                            rngNum = Random.Range(1, 5);
+                            if (rngNum != 4)
+                            {
+                                roomGrid[i, j] = 3;
+                            }
+                            else
+                            {
+                                roomGrid[i, j] = 4;
+                            }
+                        }
                     }
                 }
+                Debug.Log(roomGrid[i,j]);
+                
             }
         }
 
